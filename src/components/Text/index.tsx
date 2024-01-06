@@ -1,12 +1,16 @@
 import { HTMLAttributes } from "react";
 
-interface Props extends HTMLAttributes<HTMLParagraphElement> {
+interface Props extends HTMLAttributes<HTMLParagraphElement>{
     children: string;
 }
-const Text = ({children, ...props} : Props) => {
+
+const Text = ({ children, ...props }: Props) => {
 
     return (
-        <p {...props}>{children}</p>
+        <>
+            <p {...props}>{children}</p>
+        </>
+        
     )
 }
 

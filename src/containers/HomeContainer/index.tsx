@@ -1,230 +1,265 @@
 
-import { Input, Text, Button } from '../../components';
-import { Formik, Form, ErrorMessage} from 'formik';
-import * as Yup from 'yup';
+import { Button, Input, Text, Card } from '../../Components';
+import { useFormik } from 'formik';
 import { useState } from 'react';
+import * as yup from 'yup';
 
-const Step1 = () => (
-  <>
-    <h2 className="text-xl font-semibold mb-4">Step 1: Personal Information</h2>
-    <div className="mb-4">
-      <Text className='block text-sm font-medium text-gray-700'>{'First Name'}</Text>
-      <Input
-        type='text'
-        id='firstName'
-        name='firstName'
-        className='mt-1 p-2 w-full border rounded-md'
-      />
-      <ErrorMessage
-        name="firstName" 
-        component="div" 
-        className="text-red-500 text-sm" 
-      />
-    </div>
-    <div className="mb-4">
-      <Text className='block text-sm font-medium text-gray-700'>{'Last Name'}</Text>
-      <Input
-        type='text'
-        id='lastName'
-        name='lastName'
-        className='mt-1 p-2 w-full border rounded-md'
-      />
-      <ErrorMessage 
-        name="lastName" 
-        component="div" 
-        className="text-red-500 text-sm" 
-      />
-    </div>
-    <div className="mb-4">
-      <Text className='block text-sm font-medium text-gray-700'>{'Email Address'}</Text>
-      <Input
-        type='email'
-        id='email'
-        name='email'
-        className='mt-1 p-2 w-full border rounded-md'
-      />
-      <ErrorMessage 
-        name="email" 
-        component="div" 
-        className="text-red-500 text-sm" />
-    </div>
-    <div className="mb-4">
-      <Text className='block text-sm font-medium text-gray-700'>{'Date of Birth'}</Text>
-      <Input
-        type='date'
-        id='dob'
-        name='dob'
-        className='mt-1 p-2 w-full border rounded-md'
-      />
-      <ErrorMessage 
-        name="dob" 
-        component="div" 
-        className="text-red-500 text-sm" />
-    </div>
-  </>
-);
-
-const Step2 = () => (
-  <>
-    <h2 className="text-xl font-semibold mb-4">Step 2: Address Information</h2>
-    <div className="mb-4">
-      <Text className='block text-sm font-medium text-gray-700'>{'Street Address'}</Text>
-      <Input
-        type='text'
-        id='streetAddress'
-        name='streetAddress'
-        className='mt-1 p-2 w-full border rounded-md'
-      />
-      <ErrorMessage 
-        name="streetAddress" 
-        component="div" 
-        className="text-red-500 text-sm" 
-      />
-    </div>
-    <div className="mb-4">
-      <Text className='block text-sm font-medium text-gray-700'>{'City'}</Text>
-      <Input
-        type='text'
-        id='city'
-        name='city'
-        className='mt-1 p-2 w-full border rounded-md'
-      />
-      <ErrorMessage 
-        name="city" 
-        component="div" 
-        className="text-red-500 text-sm" />
-    </div>
-    <div className="mb-4">
-      <Text className='block text-sm font-medium text-gray-700'>{'State'}</Text>
-      <Input
-        type='text'
-        id='state'
-        name='state'
-        className='mt-1 p-2 w-full border rounded-md'
-      />
-      <ErrorMessage 
-        name="state" 
-        component="div" 
-        className="text-red-500 text-sm" />
-    </div>
-    <div className="mb-4">
-      <Text className='block text-sm font-medium text-gray-700'>{'Zip Code'}</Text>
-      <Input
-        type='text'
-        id='zipCode'
-        name='zipCode'
-        className='mt-1 p-2 w-full border rounded-md'
-      />
-      <ErrorMessage 
-        name="zipCode" 
-        component="div" 
-        className="text-red-500 text-sm" />
-    </div>
-  </>
-);
-
-const Step3 = () => (
-  <>
-    <h2 className="text-xl font-semibold mb-4">Step 3: Account Information</h2>
-    <div className="mb-4">
-      <Text className='block text-sm font-medium text-gray-700'>{'Username'}</Text>
-      <Input
-        type='text'
-        id='username'
-        name='username'
-        className='mt-1 p-2 w-full border rounded-md'
-      />
-      <ErrorMessage 
-        name="username" 
-        component="div" 
-        className="text-red-500 text-sm" />
-    </div>
-    <div className="mb-4">
-      <Text className='block text-sm font-medium text-gray-700'>{'Password'}</Text>
-      <Input
-        type='password'
-        id='password'
-        name='password'
-        className='mt-1 p-2 w-full border rounded-md'
-      />
-      <ErrorMessage 
-        name="password" 
-        component="div" 
-        className="text-red-500 text-sm" />
-    </div>
-  </>
-);
 const HomeContainer = () => {
+    const [step, setStep] = useState<number>(1);
 
-  const [step, setStep] = useState(1);
+    const handleNext = () => {
+        if(step === 3) {
+            return
+        }
+        setStep((prevState) => prevState + 1)
+    }
 
-  const nextStep = () => {
-    setStep((prevStep) => prevStep + 1);
-  };
+    const handlePrevious = () => {
+        if(step ===1) {
+            return
+        }
+        setStep((prevState) => prevState - 1)
+    }
 
-  const prevStep = () => {
-    setStep((prevStep) => prevStep - 1);
-  }
-
-  return (
-    <>
-      <div className="max-w-md mx-auto mt-8 p-6 bg-white shadow-lg rounded-md">
-        <Formik
-          initialValues={{
+    const formMik = useFormik ({
+        initialValues: {
             firstName: '',
             lastName: '',
             email: '',
-            dob: '',
+            dof:'',
             streetAddress: '',
             city: '',
             state: '',
             zipCode: '',
             username: '',
             password: '',
-          }}
-          validationSchema={Yup.object({
-            firstName: Yup.string().required('First Name is required'),
-            lastName: Yup.string().required('Last Name is required'),
-            email: Yup.string().email('Invalid email address').required('Email is required'),
-            dob: Yup.date().required('Date of Birth is required'),
-            streetAddress: Yup.string().required('Street Address is required'),
-            city: Yup.string().required('City is required'),
-            state: Yup.string().required('State is required'),
-            zipCode: Yup.string().matches(/^\d{5}$/, 'Invalid Zip Code').required('Zip Code is required'),
-            username: Yup.string().required('Username is required'),
-            password: Yup.string().required('Password is required').matches(
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-              'Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character'
-            ),
-          })}
-          onSubmit={(values, { setSubmitting}) => {
-            console.log(values);
-            setSubmitting(false);
-          }}  
-        >
-          <Form>
-            {step === 1 && <Step1 />}
-            {step === 2 && <Step2 />}
-            {step === 3 && <Step3 />}
+        },
+        onSubmit: (values) => console.log(values),
+        validationSchema: yup.object({
+            firstName: yup
+            .string()
+            .required('First Name is required'),
+            lastName: yup
+            .string()
+            .required('Last Name is required'),
+            email: yup.string().email().required('Email is required'),
+            dof: yup
+            .date()
+            .nullable()
+            .required('Date of Birth is required')
+            .max(new Date(), 'Date of Birth must be in the past')
+            .test('is-adult', 'You must be at least 18 years old', function (value) {
+                const currentDate = new Date();
+                const userDateofBirth = new Date(value);
+                const age = currentDate.getFullYear() - userDateofBirth.getFullYear();
 
-            <div className="mt-6 flex justify-between">
-              {step > 1 && (
-                <Button type="button" className="px-4 py-2 bg-gray-300 rounded-md" onClick={prevStep} label={'Previous'}/>
-              )}
+                return age >= 18;
+            }), 
+            streetAddress: yup.string().required('Street Address is required'),
+            city: yup.string().required('City is required'),
+            state: yup.string().required('State is required'),
+            zipCode: yup.string().matches(/^\d{5}$/, 'Invalid Zip Code').required('Zip Code is required'),
+            username: yup.string().required('Username is required'),
+            password: yup.string()
+                .min(8, 'Password must be at least 8 characters')
+                .matches(
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+                    'Password must contain at least one lowercase letter, one uppercase letter, and one digit'
+                )
+                .required('Password is required'),
+        })
+    });
+    return (
+        <Card border={false} className={''}>
+            <Card border>
+                <form onSubmit={formMik.handleSubmit}>
+                    {step === 1 && (
+                        <div>
+                            <div>
+                                <Text >{'First Name'}</Text>
+                                <Input 
+                                    className='block border-neutral-400 border'
+                                    placeholder='First Name'
+                                    name={'firstName'}
+                                    value={formMik.values.firstName}
+                                    onChange={formMik.handleChange('firstName')}
+                                />
+                                {
+                                    formMik.errors.firstName && (
+                                        <Text className='text-red-500'>{formMik.errors.firstName}</Text>
+                                    )
+                                }
+                            </div>
+                            <div>
+                                <Text>{'Last Name'}</Text>
+                                <Input 
+                                    className='block border-neutral-400 border'
+                                    placeholder='Last Name' 
+                                    name={'lastName'}
+                                    value={formMik.values.lastName}
+                                    onChange={formMik.handleChange('lastName')}
+                                />
+                                {
+                                    formMik.errors.lastName && (
+                                        <Text className='text-red-500'>{formMik.errors.lastName}</Text>
+                                    )
+                                }
+                            </div>
+                            <div>
+                                <Text>{'Email Address'}</Text>
+                                <Input 
+                                    className='block border-neutral-400 border'
+                                    placeholder='Email@email.com' 
+                                    name={'email'}
+                                    value={formMik.values.email}
+                                    onChange={formMik.handleChange('email')}
+                                />
+                                {
+                                    formMik.errors.email && (
+                                        <Text className='text-red-500'>{formMik.errors.email}</Text>
+                                    )
+                                }
+                            </div>
+                            <div className='my-4'>
+                                <Text>{'Date of Birth'}</Text>
+                                <Input 
+                                    className='block border-neutral-400 border'
+                                    name={'dof'}
+                                    type={'date'}
+                                    id={'dof'}
+                                    value={formMik.values.dof}
+                                    onChange={formMik.handleChange('dof')}
+                                />
+                                {
+                                    formMik.errors.dof && (
+                                        <Text className='text-red-500'>{formMik.errors.dof}</Text>
+                                    )
+                                }
+                            </div>
+                            <div className='flex items-center justify-between'>
+                                <Button label={"Previous"} type={"button"} onClick={handlePrevious}/>
+                                <Button label={"Next"} type={"button"} onClick={handleNext}/>
+                            </div>
+                            
+                        </div>
+                    )}
+                    
+                    {step === 2 && (
+                        <div>
+                            <div>
+                                <Text >{'Street Address'}</Text>
+                                <Input 
+                                    className='block border-neutral-400 border'
+                                    placeholder='Street Address'
+                                    name={'streetAddress'}
+                                    value={formMik.values.streetAddress}
+                                    onChange={formMik.handleChange('streetAddress')}
+                                />
+                                {
+                                    formMik.errors.streetAddress && (
+                                        <Text className='text-red-500'>{formMik.errors.streetAddress}</Text>
+                                    )
+                                }
+                            </div>
+                            <div>
+                                <Text >{'City'}</Text>
+                                <Input 
+                                    className='block border-neutral-400 border'
+                                    placeholder='City'
+                                    name={'city'}
+                                    value={formMik.values.city}
+                                    onChange={formMik.handleChange('city')}
+                                />
+                                {
+                                    formMik.errors.city && (
+                                        <Text className='text-red-500'>{formMik.errors.city}</Text>
+                                    )
+                                }
+                            </div>
+                            <div>
+                                <Text >{'State'}</Text>
+                                <Input 
+                                    className='block border-neutral-400 border'
+                                    placeholder='State'
+                                    name={'state'}
+                                    value={formMik.values.state}
+                                    onChange={formMik.handleChange('state')}
+                                />
+                                {
+                                    formMik.errors.state && (
+                                        <Text className='text-red-500'>{formMik.errors.state}</Text>
+                                    )
+                                }
+                            </div>
+                            <div>
+                                <Text >{'Zip Code'}</Text>
+                                <Input 
+                                    className='block border-neutral-400 border'
+                                    placeholder='Zip Code'
+                                    name={'zipCode'}
+                                    value={formMik.values.zipCode}
+                                    onChange={formMik.handleChange('zipCode')}
+                                />
+                                {
+                                    formMik.errors.zipCode && (
+                                        <Text className='text-red-500'>{formMik.errors.zipCode}</Text>
+                                    )
+                                }
+                            </div>
+                            <div className='flex items-center justify-between'>
+                                <Button label={"Previous"} type={"button"} onClick={handlePrevious}/>
+                                <Button label={"Next"} type={"button"} onClick={handleNext}/>
+                            </div>
+                        </div>
+                    )}
 
-              {step < 3 && (
-                <Button type="button" className="px-4 py-2 bg-gray-300 rounded-md" onClick={nextStep} label={'Next'}/>
-              )}
-
-              {step === 3 && (
-                <Button type="submit" className="px-4 py-2 bg-gray-300 rounded-md" label={'Submit'}/>
-              )}
-            </div>
-          </Form>
-        </Formik>
-      </div>
-    </>
-  );
+                    {step === 3 && (
+                        <div>
+                            <div>
+                                <Text >{'Username'}</Text>
+                                <Input 
+                                    className='block border-neutral-400 border'
+                                    placeholder='username'
+                                    type='text'
+                                    value={formMik.values.username}
+                                    onChange={formMik.handleChange('username')}
+                                />
+                                {
+                                    formMik.errors.username && (
+                                        <Text className='text-red-500'>{formMik.errors.username}</Text>
+                                    )
+                                }
+                            </div>
+                            <div>
+                                <Text >{'Password'}</Text>
+                                
+                                <Input 
+                                    className='block border-neutral-400 border'
+                                    type={'text'}
+                                    id={'password'}
+                                    name={'password'}
+                                    placeholder='Enter your password'
+                                    value={formMik.values.password}
+                                    onChange={formMik.handleChange('password')}
+                                    
+                                />
+                                {
+                                    formMik.errors.password && (
+                                    <Text className='text-red-500'>{formMik.errors.password}</Text>
+                                    )
+                                }
+                            </div>
+                            <div className='flex items-center justify-between'>
+                                <Button label={"Previous"} type={"button"} onClick={handlePrevious}/>
+                                <Button label={"Submit"} type={"submit"}/>
+                            </div>
+                        </div>
+                    )}
+                </form>
+            </Card>
+        </Card>
+        
+    )
 };
 
 export default HomeContainer
