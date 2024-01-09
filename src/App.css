@@ -1,17 +1,17 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-p {
-    margin-block-start: 5px;
-    margin-block-end: 8px;
-}
-
-.App {
+h1 {
     display: flex;
     justify-content: center;
+}
+.button-dress {
+    display: flex;
+    text-align: center;
+    border: solid 1px gray;
+    padding: 10px;
+    justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100%;
+    column-gap: 50px;
 }

@@ -1,11 +1,9 @@
-import './app.css'
-import { HomeContainer, LoginContainer, PageContainer, ProtectContainer } from './Containers';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-//import { library } from '@fortawesome/fontawesome-svg-core';
-//import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-//library.add(faEye, faEyeSlash)
+
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
 import PublicLayout from './Layout/PublicLayout';
-import ProtectLayout from './Layout/ProtectLayout';
+import { HomeContainer, ListContainer, LogContainer, PrivateContainer, RegisterContainer } from './Containers';
+import PrivateLayout from './Layout/PrivateLayout';
 
 
 function App() {
@@ -13,22 +11,21 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route element={<PublicLayout />}>
-            <Route path='/' element={<LoginContainer/>}/>
-            <Route path='/page' element={<PageContainer/>}/>
-            <Route path='/register' element={<HomeContainer/>}/>
+          <Route element={<PublicLayout/>}>
+            <Route path='/' element={<HomeContainer/>}/>
+            {/* <Route path='/register' element={<RegisContainer onRegister={function (_data: RegistrationFormData): void {
+              throw new Error('Function not implemented.');
+            } }/>} /> */}
+            <Route path='/register' element={<RegisterContainer/>} />
+            <Route path='/login' element={<LogContainer/>} />
+            <Route path='/list' element={<ListContainer/>} />
           </Route>
-          <Route path='*' element={<h1>404</h1>}/>
-          <Route element={<ProtectLayout/>}>
-            <Route 
-              path='/protect' 
-              element={<ProtectContainer/>}
-            />
+          <Route element={<PrivateLayout/>}>
+            <Route path='/protect' element={<PrivateContainer/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
     </div>
-    
   );
 }
 

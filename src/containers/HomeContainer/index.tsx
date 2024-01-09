@@ -1,4 +1,3 @@
-
 import { Button, Input, Text, Card } from '../../Components';
 import { useFormik } from 'formik';
 import { useState } from 'react';
@@ -70,9 +69,20 @@ const HomeContainer = () => {
         })
     });
     return (
-        <Card border={false} className={''}>
-            <Card border>
-                <form onSubmit={formMik.handleSubmit}>
+        <form onSubmit={formMik.handleSubmit}>
+            <Card border={false} className={''}>
+                <Card border className='mb-2'>
+                    {step === 1 && (
+                        <h1 className='text-xl'><b>Step 1: Personal Information</b></h1>
+                    )}
+                    {step === 2 && (
+                        <h1 className='text-xl'><b>Step 2: Address Information</b></h1>
+                    )}
+                    {step === 3 && (
+                        <h1 className='text-xl'><b>Step 3: Account Information</b></h1>
+                    )}
+                </Card>
+                <Card border>
                     {step === 1 && (
                         <div>
                             <div>
@@ -120,7 +130,7 @@ const HomeContainer = () => {
                                     )
                                 }
                             </div>
-                            <div className='my-4'>
+                            <div className='mb-4'>
                                 <Text>{'Date of Birth'}</Text>
                                 <Input 
                                     className='block border-neutral-400 border'
@@ -191,7 +201,7 @@ const HomeContainer = () => {
                                     )
                                 }
                             </div>
-                            <div>
+                            <div className='mb-4'>
                                 <Text >{'Zip Code'}</Text>
                                 <Input 
                                     className='block border-neutral-400 border'
@@ -230,7 +240,7 @@ const HomeContainer = () => {
                                     )
                                 }
                             </div>
-                            <div>
+                            <div className='mb-4'>
                                 <Text >{'Password'}</Text>
                                 
                                 <Input 
@@ -255,9 +265,10 @@ const HomeContainer = () => {
                             </div>
                         </div>
                     )}
-                </form>
+                </Card>
             </Card>
-        </Card>
+        </form>
+            
         
     )
 };

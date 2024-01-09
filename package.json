@@ -1,17 +1,14 @@
 {
-  "name": "module-4-usman4li-assignment2",
+  "name": "latihan-1",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.5.1",
-    "@fortawesome/free-solid-svg-icons": "^6.5.1",
-    "@fortawesome/react-fontawesome": "^0.2.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.69",
-    "@types/react": "^18.2.46",
+    "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
     "formik": "^2.4.5",
     "localforage": "^1.10.0",
@@ -26,7 +23,6 @@
     "yup": "^1.3.3"
   },
   "scripts": {
-    "dev": "node index.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -51,11 +47,6 @@
     ]
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.0"
-  },
-  "main": "tailwind.config.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+    "tailwindcss": "^3.4.1"
+  }
 }

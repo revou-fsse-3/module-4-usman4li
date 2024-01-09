@@ -29,9 +29,9 @@ const Navbar = () => {
                         <div className="flex space-x-4">
                             
                             <button onClick={() => Navigate('/')} className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</button>
-                            <button onClick={() => Navigate('/page')} className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Page</button>
                             <button onClick={() => Navigate('/register')} className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Register</button>
-                            <button onClick={() => Navigate('/protect')} className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Protect</button>
+                            <button onClick={() => Navigate('/login')} className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Login</button>
+                            <button onClick={() => Navigate('/list')} className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">List</button>
                         </div>
                         </div>
                     </div>
